@@ -62,8 +62,8 @@ class LoaderManager(private val configFile: ConfigFile, private val internetMana
 
             LOGGER.info("Server has been stopped, it has started " + startTimes.size + " times in " + configFile.launch.crashTimer)
 
-
-            shouldRestart = configFile.launch.autoRestart && startTimes.size <= configFile.launch.crashLimit
+            var update = File("update.server").exists()
+            shouldRestart = !update && configFile.launch.autoRestart && startTimes.size <= configFile.launch.crashLimit
             if (shouldRestart) {
                 LOGGER.info("Restarting server in 10 seconds, press ctrl+c to stop")
                 try {
